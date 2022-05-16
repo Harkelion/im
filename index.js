@@ -15,7 +15,9 @@ const ZONE = {
     9970: 970,
     9770: 770,
     9950: 950,
-    9044: 444
+    9044: 444,
+    9981: 981,
+    3047: 427,
 }
 
 const BOSS = {
@@ -24,6 +26,8 @@ const BOSS = {
     9950: 4000,
     3034: 4000,
     9044: 2000,
+    9981: 1045,
+    3047: 2007
 }
 
 module.exports = function(mod) {
@@ -38,10 +42,10 @@ module.exports = function(mod) {
 
 	//S_FIN_INTER_PARTY_MATCH def1
 
-    mod.hook('S_LOAD_TOPO', 3, event => {
+    mod.hook('S_BOSS_GAGE_INFO', 3, event => {
         //mod.log('S_FIN_INTER_PARTY_MATCH');
         //mod.log(event);
-	if (event.zone in ZONE && isEnabled);{ im(event.zone); }         
+	if (isEnabled);{ im(event.zone); }         
     })
 
     mod.hook('S_PARTY_MEMBER_LIST', 9, event => {
