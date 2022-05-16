@@ -31,10 +31,12 @@ module.exports = function(mod) {
 
     mod.command.add('im', im);
 
-    mod.hook('S_FIN_INTER_PARTY_MATCH', 1, event => {
+	//S_FIN_INTER_PARTY_MATCH def1
+
+    mod.hook('S_LOAD_TOPO', 3, event => {
         //mod.log('S_FIN_INTER_PARTY_MATCH');
         //mod.log(event);
-        im(event.zone);
+	if (event.zone in ZONE);{ im(event.zone); }         
     })
 
     mod.hook('S_PARTY_MEMBER_LIST', 9, event => {
