@@ -29,14 +29,19 @@ const BOSS = {
 module.exports = function(mod) {
     let myparty = []
 
-    mod.command.add('im', im);
+    command.add('dp', {
+        '$default'() {
+            isEnabled = !isEnabled;
+            command.message(' Dps Party ' + (isEnabled ? 'enabled' : 'disabled') + '.');
+        }
+    });
 
 	//S_FIN_INTER_PARTY_MATCH def1
 
     mod.hook('S_LOAD_TOPO', 3, event => {
         //mod.log('S_FIN_INTER_PARTY_MATCH');
         //mod.log(event);
-	if (event.zone in ZONE);{ im(event.zone); }         
+	if (event.zone in ZONE && isEnabled);{ im(event.zone); }         
     })
 
     mod.hook('S_PARTY_MEMBER_LIST', 9, event => {
