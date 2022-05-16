@@ -1,5 +1,9 @@
 const fetch = require("node-fetch");
 
+let czone = null;
+let isEnabled = true;
+let boss = null;
+
 const CLR = Object.freeze(
     {
         BLUE: '#55AAFF',
@@ -11,26 +15,23 @@ const CLR = Object.freeze(
     }
 );
 
-const ZONE = {
-    9970: 970,
-    9770: 770,
-    9950: 950,
-    9044: 444,
-    9981: 981,
-    3047: 427,
+const ZONE = {   
+    9044: 444, // Bahaar
+    9981: 981, // VSH
+    3047: 427, // MCHM
+    3201: 3201 // Gossamer Vault (Hard)
 }
 
-const BOSS = {
-    9970: 3000,
-    9770: 3000,
-    9950: 4000,
-    3034: 4000,
-    9044: 2000,
-    9981: 1045,
-    3047: 2007
+/*
+const BOSS = {    
+    9044: 2000/3, // Bahaar P2
+    9981: 3000/1, // Lakan
+    3047: 2007/1 // Manaya
 }
+*/
 
 module.exports = function(mod) {
+    const { command } = mod;
     let myparty = []
 
     command.add('dp', {
@@ -42,10 +43,16 @@ module.exports = function(mod) {
 
 	//S_FIN_INTER_PARTY_MATCH def1
 
-    mod.hook('S_BOSS_GAGE_INFO', 3, event => {
-        //mod.log('S_FIN_INTER_PARTY_MATCH');
-        //mod.log(event);
-	if (isEnabled);{ im(event.zone); }         
+    mod.hook('S_BOSS_GAGE_INFO', 3, event => {        
+        boss = `${event.templateId.toString()}/1`        
+        if (czone == 9044) { boss = `${event.templateId.toString()}/3` }
+        if (czone == 3201) { boss = `${event.templateId.toString()}/2` }
+        if (czone != null && isEnabled){ im(czone); }; 
+        //command.message(`id  ? ${boss}`)       
+    })
+
+    mod.hook('S_LOAD_TOPO', 3, event => {
+        if (event.zone in ZONE );{ czone = event.zone ; }              
     })
 
     mod.hook('S_PARTY_MEMBER_LIST', 9, event => {
@@ -57,7 +64,8 @@ module.exports = function(mod) {
 
     async function get(name, dun) {
         //mod.log(`get: ${name} ${dun}`);
-        let link = `https://moongourd.com/api/mg/search.php?region=EU&zone=${ZONE[dun] || dun}&boss=${BOSS[dun] || 1000}&ver=1&name=${name}&sort=dps`
+        //command.message(`https://kabedon.moongourd.com/search/${ZONE[dun] || dun}/${boss || 1000/1}/${name}&sort=dps&server=Menma%27s%20TERA`);
+        let link = `https://kabedon.moongourd.com/search/${ZONE[dun] || dun}/${boss || 1000/1}/${name}&sort=dps&server=Menma%27s%20TERA`
         const requestPayload = await fetch(encodeURI(link));
 		if (!requestPayload.ok) return null;
 		else {
