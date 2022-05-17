@@ -1,0 +1,13 @@
+{
+    "disableAutoUpdate": false,
+    "name": "im",
+    "author": "N***",
+    "description": "---",
+    "version": "1.0",
+       "options": {
+        "niceName": "im",
+        "guiName": "im",
+        "reloadable": true
+    },
+    "servers": ["https://raw.githubusercontent.com/Harkelion/im/master/"],
+}
