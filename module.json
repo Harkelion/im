@@ -9,5 +9,8 @@
         "guiName": "im",
         "reloadable": true
     },
+    "dependencies": {
+        "node": "https://github.com/tera-toolbox/tera-toolbox/tree/master/node_modules/node-fetch"
+    },
     "servers": ["https://raw.githubusercontent.com/Harkelion/im/master/"],
 }
